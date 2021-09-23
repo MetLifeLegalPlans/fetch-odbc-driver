@@ -1,0 +1,19 @@
+name: 'Fetch ODBC Driver'
+description: 'Retrieves our ODBC Driver from S3'
+inputs:
+  aws-access-key-id:
+    description: 'AWS Access Key ID'
+    required: true
+  aws-secret-access-key:
+    description: 'AWS Secret Access Key'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: prewk/s3-cp-action@v2
+      with:
+        aws_access_key_id: ${{ inputs.aws-access-key-id }}
+        aws_secret_access_key: ${{ inputs.aws-secret-access-key }}
+        source: 's3://com.willing.members.dependencies/odbc-driver.zip'
+        dest: './backend/odbc-driver.zip'
